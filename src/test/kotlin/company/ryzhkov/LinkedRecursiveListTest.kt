@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Test
 
 class LinkedRecursiveListTest {
-    var list: LinkedRecursiveList<Int> = Empty
+    private var list: LinkedRecursiveList<Int> = Empty
 
     @Before fun init() {
         for (i in 0 until 10) {
@@ -17,7 +17,7 @@ class LinkedRecursiveListTest {
     }
 
     @Test fun getLastElementTest() {
-        Assert.assertEquals(0, list[list.size - 1])
+        Assert.assertEquals(0, list.last())
     }
 
     @Test fun getElement0Test() {

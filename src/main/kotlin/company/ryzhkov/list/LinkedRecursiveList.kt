@@ -20,4 +20,7 @@ sealed class LinkedRecursiveList<out T> : AbstractList<T>() {
 
 object Empty : LinkedRecursiveList<Nothing>()
 
-data class InnerList<T>(val head: T, val tail: LinkedRecursiveList<T>) : LinkedRecursiveList<T>()
+data class InnerList<T>(
+    val head: T,
+    val tail: LinkedRecursiveList<T>
+) : LinkedRecursiveList<T>()
