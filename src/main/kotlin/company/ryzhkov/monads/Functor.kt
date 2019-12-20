@@ -15,3 +15,8 @@ data class Some<A>(val value: A) : Option<A>()
 
 object None : Option<Nothing>()
 
+data class Foo<out T>(val t: T)
+
+//fun <F: Foo, A, B> bla(a: A, b: F<B>): F<A> {
+//
+//}
