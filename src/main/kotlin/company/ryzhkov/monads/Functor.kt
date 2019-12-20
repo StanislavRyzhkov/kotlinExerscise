@@ -1,31 +1,22 @@
 package company.ryzhkov.monads
 
-
-sealed class Maybe<out T>
-
-data class Just<out T>(val t: T) : Maybe<T>()
-
-object Empty : Maybe<Nothing>()
-
-interface Functor {
-    fun<A, B> map(maybeA: Maybe<A>, f: (A) -> B): Maybe<B>
+interface Functor<out A> {
+    fun <B> map(f: (A) -> B): Functor<B>
 }
 
-object MaybeFunctor : Functor {
-    override fun <A, B> map(maybeA: Maybe<A>, f: (A) -> B): Maybe<B> = when(maybeA) {
-        is Just -> Just(f(maybeA.t))
-        is Empty -> Empty
+sealed class Option<out A> : Functor<A> {
+    override fun <B> map(f: (A) -> B): Option<B> = when(val param = this) {
+        is Some -> Some(f(param.value))
+        is None -> None
     }
 }
 
-fun <A, B> Maybe<A>.map(f: (A) -> B): Maybe<B> {
-    return MaybeFunctor.map(this, f)
-}
+data class Some<A>(val value: A) : Option<A>()
 
-fun main() {
-    val maybeString: Maybe<String> = Just("Hello")
-    val res = maybeString
-        .map { it.toUpperCase() }
-    println(res)
-}
+object None : Option<Nothing>()
 
+data class Foo<out T>(val t: T)
+
+//fun <F: Foo, A, B> bla(a: A, b: F<B>): F<A> {
+//
+//}
